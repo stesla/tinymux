@@ -352,6 +352,11 @@ else
 AC_EGREP_HEADER(gettimeofday,time.h, ,AC_DEFINE(NEED_GETTIMEOFDAY_DCL))
 fi
 
+save_CPPFLAGS="$CPPFLAGS"
+CPPFLAGS="$save_CPPFLAGS $SQL_INCLUDE"
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <mysql.h>]], [[int x = 1;]])],[AC_DEFINE([HAVE_MYSQL_H], [], [Define if mysql.h exists.])],[])
+CPPFLAGS="$save_CPPFLAGS"
+
 # Checks for typedefs, structures, and compiler characteristics.
 #
 AC_TYPE_OFF_T
